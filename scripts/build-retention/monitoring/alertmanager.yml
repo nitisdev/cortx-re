@@ -1,0 +1,47 @@
+  global:
+    resolve_timeout: 1h
+  
+  route:
+    group_wait: 60s
+    group_interval: 30m
+    repeat_interval: 4h
+    #receiver: 'tech-email'
+    receiver: 'Jenkins alert trigger'
+    routes:
+    - receiver: "tech-email"
+      group_wait: 10s
+      match_re:
+        severity: critical|warning
+      continue: true
+ #     - match:
+ #         severity: warning
+ #       receiver: 'tech-email'
+    - receiver: "Jenkins alert trigger"
+      group_wait: 10s
+      match_re:
+        severity: critial
+      continue: true
+
+  receivers:
+  - name: 'tech-email'
+    email_configs:
+    - to: 'CORTX.DevOps.RE@seagate.com'
+      from: 'nobody@seagate.com'
+      headers:
+        subject: '{{ .CommonLabels.severity }} Disk Space Consumption'
+      #auth_username: *****
+      #auth_password: ******
+      require_tls: no
+      smarthost: mailhost.seagate.com:25
+      send_resolved: true
+      text: "<!channel> \nsummary: {{ .CommonAnnotations.summary }}\ndescription: {{ .CommonAnnotations.description }}"
+
+#  - name: "Jenkins alert trigger"
+#    webhook_configs:
+#      - url: http://ssc-vm-2133.colo.seagate.com:8080/generic-webhook-trigger/invoke?token=alert123
+#        send_resolved: true
+#        http_config:
+#          basic_auth:
+#            username: 'admin'
+#            password: '557fb824f76a4a66ae8ffba99e3ad3b9'
+

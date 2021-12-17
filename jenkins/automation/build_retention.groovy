@@ -27,7 +27,7 @@ pipeline {
 			steps {
 				script { 
 
-					sh label: 'Cleanup', script: '''sudo sh -x scripts/release_support/cleanup.sh $BUILD $BRANCH $OS'''
+					sh label: 'Cleanup', script: '''sudo sh -x scripts/build-retention/cleanup.sh $BUILD $BRANCH $OS'''
 					SPACE = "${sh(script: 'df -h | grep /mnt/bigstorage/releases', returnStdout: true).trim()}"
 
 				}			
