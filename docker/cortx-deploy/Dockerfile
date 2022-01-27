@@ -43,6 +43,10 @@ RUN yum-config-manager --disable base,extras,updates
 #Add Internal and CORTX uploads repository
 COPY ./${ENVIRONMENT}/C${CENTOS_RELEASE}.repo /etc/yum.repos.d/
 
+# Install EPEL repo for opensource-ci
+RUN if [ "$ENVIRONMENT" = "opensource-ci" ] ; then yum install epel-release -y ; fi && yum clean all \
+&& rm -rf /var/cache/yum
+
 RUN yum-config-manager --add-repo ${BUILD_URL}/cortx_iso/ \
     && yum-config-manager --add-repo ${BUILD_URL}/3rd_party \
     && curl ${BUILD_URL}/RELEASE.INFO -o RELEASE.INFO 
@@ -58,6 +62,7 @@ RUN yum install --nogpgcheck -y  $(sed 's/#.*//g' /opt/seagate/cortx/third-party
     && yum clean all && rm -rf /var/cache/yum
     
 RUN yum install --nogpgcheck -y  $(sed 's/#.*//g' /opt/seagate/cortx/cortx-componenet-rpms.txt) \
+    && yum install --nogpgcheck --downloadonly --downloaddir=/opt/seagate/cortx/debug-packages cortx-s3server-debuginfo cortx-hare-debuginfo cortx-motr-debuginfo \
     && yum clean all && rm -rf /var/cache/yum
     
 RUN rm -f /etc/machine-id && ln -s /etc/cortx/solution/node/id /etc/machine-id \
