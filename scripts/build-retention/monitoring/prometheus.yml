@@ -1,7 +1,7 @@
 global:
   scrape_interval: 5s
   external_labels:
-    monitor: 'jenkins-monitor'
+    monitor: 'disk-monitor'
 
 rule_files:
   - 'alert.rules'
@@ -9,7 +9,7 @@ rule_files:
 scrape_configs:
   - job_name: 'prometheus' 
     static_configs: 
-      - targets: ['10.230.243.253:9090'] ## IP Address of the localhost
+      - targets: ['10.230.243.253:9090']
 
   - job_name: 'node-exporter' 
     static_configs: 
@@ -18,11 +18,6 @@ scrape_configs:
   - job_name: 'cadvisor'
     static_configs:
       - targets: ['10.230.243.253:8080']
-
-#  - job_name: 'jenkins'
-#    metrics_path: /prometheus
-#    static_configs:
-#      - targets: ['10.230.242.116:8080']
 
 alerting:
   alertmanagers:

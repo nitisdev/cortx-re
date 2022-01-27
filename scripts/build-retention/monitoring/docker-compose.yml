@@ -1,9 +1,6 @@
 version: '3'
-networks:
- monitoring:
 volumes:
   grafana-volume:
-    external: true
 services:
   prometheus:
     image: prom/prometheus:latest
@@ -44,7 +41,6 @@ services:
 
   alertmanager:
     image: prom/alertmanager:latest
-    #image: quay.io/prometheus/alertmanager
     volumes:
       - ./alertmanager.yml:/alertmanager.yml
     command:
@@ -63,20 +59,3 @@ services:
       - /var/lib/docker/:/var/lib/docker:ro
       - /dev/disk/:/dev/disk:ro
       - /cgroup:/sys/fs/cgroup:ro
-
-
-# node-exporter:
-#    image: prom/node-exporter
-#    ports:
-#      - '9100:9100'
-
-#  cadvisor:
-#    image: google/cadvisor:latest
-   # ports:
-   #   - '8081:8081'
-#    volumes:
-#      - /:/rootfs:ro
-#      - /var/run/docker.sock:/var/run/docker.sock:rw
-      #- /var/run:/var/run:rw
-#      - /sys:/sys:ro
-#      - /var/lib/docker/:/var/lib/docker:ro
