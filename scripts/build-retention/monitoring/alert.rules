@@ -2,7 +2,7 @@ groups:
 - name: alert.rules
   rules:
   - alert: disk_space
-    expr: 100 - (100 * ((node_filesystem_avail_bytes{device="cortx-storage.colo.seagate.com:/mnt/data1/releases", fstype="nfs4", instance="10.230.247.14:9100", job="node-exporter", mountpoint="/rootfs/mnt/bigstorage/releases"} )  / (node_filesystem_size_bytes{device="cortx-storage.colo.seagate.com:/mnt/data1/releases", fstype="nfs4", instance="10.230.247.14:9100", job="node-exporter", mountpoint="/rootfs/mnt/bigstorage/releases"}) )) > 85
+    expr: 100 - (100 * ((node_filesystem_avail_bytes{device="cortx-storage.colo.seagate.com:/mnt/data1/releases", fstype="nfs4", instance="10.230.243.253:9100", job="node-exporter", mountpoint="/rootfs/mnt/bigstorage/releases"} )  / (node_filesystem_size_bytes{device="cortx-storage.colo.seagate.com:/mnt/data1/releases", fstype="nfs4", instance="10.230.247.14:9100", job="node-exporter", mountpoint="/rootfs/mnt/bigstorage/releases"}) )) > 85
     for: 30s
     labels:
       severity: warning

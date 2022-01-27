@@ -14,25 +14,25 @@ runners: 10
 remote_config_refresh_interval: 60s
 
 # common parameters for actions
-common_parameters:
-  jenkins_credentials:
-    endpoint: http://ssc-vm-2133.colo.seagate.com:8080
-    login: admin
-    password: 557fb824f76a4a66ae8ffba99e3ad3b9
-    state_refresh_delay: 5s
+#common_parameters:
+#  jenkins_credentials:
+#    endpoint: http://ssc-vm-2133.colo.seagate.com:8080
+#    login: admin
+#    password: 557fb824f76a4a66ae8ffba99e3ad3b9
+ #   state_refresh_delay: 5s
 
-rules:
-- name: JenkinsAutofix
-  conditions:
-    labels:
+#rules:
+#- name: JenkinsAutofix
+#  conditions:
+#    labels:
   #    webhooker_jenkins_autofix: enable
   #    jenkins_job: (.*?)
-      intent: jenkins-webhook
+#      intent: jenkins-webhook
 
-  actions:
-  - executor: jenkins
-    common_parameters: jenkins_credentials
-    parameters:
-      job: test-job
+#  actions:
+#  - executor: jenkins
+#    common_parameters: jenkins_credentials
+#    parameters:
+#      job: test-job
          
       

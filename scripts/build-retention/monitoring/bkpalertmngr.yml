@@ -1,6 +1,6 @@
-route:
-  group_by: [cluster]
-  receiver: jenkins_prometheus_webook_ticket
+#route:
+#  group_by: [cluster]
+#  receiver: jenkins_prometheus_webook_ticket
 #  routes:
 # match:
 #   severity: slack
@@ -15,15 +15,15 @@ route:
 # send_resolved: true
 # text: " \nsummary: {{ .CommonAnnotations.summary }}\ndescription: {{ .CommonAnnotations.description }} 
 
-  routes:
-   - receiver: 'jenkins_prometheus_webook_ticket'
-     repeat_interval: 12h
-     continue: true
+#  routes:
+#   - receiver: 'jenkins_prometheus_webook_ticket'
+#     repeat_interval: 12h
+ #    continue: true
 
-receivers:
-  - name: jenkins_prometheus_webook_ticket
-    webhook_configs:
-      - url: 'http://ssc-vm-2455.colo.seagate.com:8080/job/test-job/build?token=25qOf06WS1'
+#receivers:
+#  - name: jenkins_prometheus_webook_ticket
+#    webhook_configs:
+      #- url: 'http://ssc-vm-2455.colo.seagate.com:8080/job/test-job/build?token=25qOf06WS1'
       #- url: 'http://ssc-vm-2455.colo.seagate.com:8080/generic-webhook-trigger/invoke?token=25qOf06WS1'
       #- url: 'http://jenkins:8080/generic-webhook-trigger/invoke?token=mySecureToken'
 

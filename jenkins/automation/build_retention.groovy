@@ -2,7 +2,7 @@ pipeline {
 
 	agent {
 		node {
-				label 'grafana-node'
+				label 'ssc-vm-g4-rhev4-0465.colo.seagate.com'
 		}
 	}
 	parameters {
