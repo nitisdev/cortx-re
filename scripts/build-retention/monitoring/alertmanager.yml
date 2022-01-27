@@ -16,11 +16,11 @@
  #     - match:
  #         severity: warning
  #       receiver: 'tech-email'
-    - receiver: "Jenkins alert trigger"
-      group_wait: 10s
-      match_re:
-        severity: critial
-      continue: true
+#    - receiver: "Jenkins alert trigger"
+#      group_wait: 10s
+#      match_re:
+#        severity: critial
+#      continue: true
 
   receivers:
   - name: 'tech-email'
