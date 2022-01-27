@@ -16,11 +16,11 @@
  #     - match:
  #         severity: warning
  #       receiver: 'tech-email'
-#    - receiver: "Jenkins alert trigger"
-#      group_wait: 10s
-#      match_re:
-#        severity: critial
-#      continue: true
+    - receiver: "Jenkins alert trigger"
+      group_wait: 10s
+      match_re:
+        severity: critial
+      continue: true
 
   receivers:
   - name: 'tech-email'
@@ -44,4 +44,3 @@
 #          basic_auth:
 #            username: 'admin'
 #            password: '557fb824f76a4a66ae8ffba99e3ad3b9'
-
