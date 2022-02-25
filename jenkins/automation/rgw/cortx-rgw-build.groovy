@@ -6,7 +6,7 @@ pipeline {
         }
     }
 
-    triggers { cron('30 22 * * *') }
+    /* triggers { cron('30 22 * * *') }
 
     environment {
         branch = "custom-ci"
@@ -18,10 +18,10 @@ pipeline {
         third_party_rpm_dir = "$release_dir/third-party-deps/rockylinux/$os_version-2.0.0-latest"
         integration_dir = "$release_dir/$component/release"
         release_tag = "cortx-rgw-build-$BUILD_ID"
-    }
+    } */
 
     parameters {
-        string(name: 'MOTR_URL', defaultValue: 'https://github.com/Seagate/cortx-motr', description: 'Repository URL for Motr build')
+        /* string(name: 'MOTR_URL', defaultValue: 'https://github.com/Seagate/cortx-motr', description: 'Repository URL for Motr build')
         string(name: 'MOTR_BRANCH', defaultValue: 'main', description: 'Branch for Motr build')
         string(name: 'HARE_URL', defaultValue: 'https://github.com/Seagate/cortx-hare', description: 'Repository URL for Hare build')
         string(name: 'HARE_BRANCH', defaultValue: 'main', description: 'Branch for Hare build')
@@ -33,6 +33,7 @@ pipeline {
         string(name: 'CORTX_RGW_INTEGRATION_URL', defaultValue: 'https://github.com/Seagate/cortx-rgw-integration', description: 'CORTX RGW integration Repository URL', trim: true)
         string(name: 'CORTX_RE_BRANCH', defaultValue: 'rocky-linux-8.4', description: 'Branch or GitHash for CORTX RE', trim: true)
         string(name: 'CORTX_RE_URL', defaultValue: 'https://github.com/Seagate/cortx-re', description: 'CORTX RE Repository URL', trim: true)
+        */
         string(name: 'CEPH_URL', defaultValue: 'https://github.com/Seagate/cortx-rgw', description: 'Repository URL for ceph build')
         string(name: 'CEPH_BRANCH', defaultValue: 'main', description: 'Branch for ceph build')
 
@@ -57,7 +58,7 @@ pipeline {
                     checkout([$class: 'GitSCM', branches: [[name: "${CEPH_BRANCH}"]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'AuthorInChangelog']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'cortx-admin-github', url: "${CEPH_URL}"]]])
                 }
 
-                dir ('motr') {
+                /* dir ('motr') {
                     checkout([$class: 'GitSCM', branches: [[name: "$MOTR_BRANCH"]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'AuthorInChangelog'], [$class: 'SubmoduleOption', disableSubmodules: false, parentCredentials: true, recursiveSubmodules: true, reference: '', trackingSubmodules: false]], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'cortx-admin-github', url: "$MOTR_URL"]]])
                 }   
 
@@ -75,12 +76,12 @@ pipeline {
 
                 dir ('cortx-rgw-integration') {
                     checkout([$class: 'GitSCM', branches: [[name: "${CORTX_RGW_INTEGRATION_BRANCH}"]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'AuthorInChangelog']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'cortx-admin-github', url: "${CORTX_RGW_INTEGRATION_URL}"]]])
-                } 
+                } */
 
             }
         }
         
-        stage ('Prepare') {
+        /*stage ('Prepare') {
             steps {
                 script { build_stage = env.STAGE_NAME }
 
@@ -99,9 +100,9 @@ pipeline {
                 yum-config-manager --add-repo=http://cortx-storage.colo.seagate.com/releases/cortx/third-party-deps/rockylinux/rockylinux-8.4-2.0.0-latest/
                 '''
             }
-        }
+        } */
 
-        stage ('Build CORTX RGW Integration Packages') {
+        /* stage ('Build CORTX RGW Integration Packages') {
             steps {
                 script { build_stage = env.STAGE_NAME }
                 sh label: 'Build CORTX RGW Integration', script: '''
@@ -114,9 +115,9 @@ pipeline {
                 popd
             '''
             }
-        }
+        } */
 
-        stage ('Build CORTX Utils Packages') {
+        /* stage ('Build CORTX Utils Packages') {
             steps {
                 script { build_stage = env.STAGE_NAME }
                 sh label: 'Build and Install', script: '''
@@ -129,9 +130,9 @@ pipeline {
                 
                 '''
             }
-        }
+        } */
 
-        stage ('Build Motr Packages') {
+        /* stage ('Build Motr Packages') {
             steps {
                 script { build_stage = env.STAGE_NAME }
                 sh label: 'Install Motr', script: '''
@@ -139,7 +140,7 @@ pipeline {
                         yum --nogpgcheck -y --disablerepo="EOS_Rocky_8_OS_x86_64_Rocky_8" install libfabric-1.11.2 libfabric-devel-1.11.2
                         yum install perl-YAML-LibYAML perl-List-MoreUtils perl-XML-LibXML castxml perl-File-Find-Rule perl-IO-All asciidoc libedit-devel python2-devel -y
                         cp cortx-motr.spec.in cortx-motr.spec
-                        sed -i "/BuildRequires.*kernel*/d" cortx-motr.spec
+                        sed -i "/BuildRequires.*kernel*/    /* d" cortx-motr.spec
                         sed -i "/BuildRequires.*%{lustre_devel}/d" cortx-motr.spec
                         sed -i 's/@BUILD_DEPEND_LIBFAB@//g' cortx-motr.spec
                         sed -i 's/@.*@/111/g' cortx-motr.spec
@@ -154,9 +155,9 @@ pipeline {
                 popd
                 '''
             }
-        }
+        } */
 
-        stage ('Build Hare Packages') {
+        /* stage ('Build Hare Packages') {
             steps {
                 script { build_stage = env.STAGE_NAME }
                 sh label: 'Build Hare', script: '''
@@ -166,9 +167,9 @@ pipeline {
                 popd
             '''
             }
-        }
+        } */
     
-        stage ('Build Provisioner Packages') {
+        /* stage ('Build Provisioner Packages') {
             steps {
                 script { build_stage = env.STAGE_NAME }
                 sh label: 'Build Provisioner', script: '''
@@ -185,7 +186,7 @@ pipeline {
                 popd
             '''
             }
-        }
+        } */
 
         stage('Build Ceph Package') {
             when { expression { params.BUILD_LATEST_CORTX_RGW == 'yes' } }
@@ -212,22 +213,22 @@ pipeline {
             }
         }    
 
-        stage ('Copy RPMS') {
+        /* stage ('Copy RPMS') {
             steps {
                 script { build_stage = env.STAGE_NAME }
                 sh label: 'Copy RPMS', script: '''
                 pushd $integration_dir
                     rm -rf $release_tag && mkdir -p $release_tag/cortx_iso
-                    cp $release_dir/$component/$branch/rpmbuild/last_successful/RPMS/*/*.rpm $integration_dir/$release_tag/cortx_iso
-                    mv /root/rpmbuild/RPMS/x86_64/*.rpm $integration_dir/$release_tag/cortx_iso
+                    cp $release_dir/$component/$branch/rpmbuild/last_successful/RPMS/*/ /*.rpm $integration_dir/$release_tag/cortx_iso
+                    mv /root/rpmbuild/RPMS/x86_64/ *.rpm $integration_dir/$release_tag/cortx_iso
                     createrepo -v $release_tag/cortx_iso
                     rm -f last_successful && ln -s $release_tag last_successful
                 popd    
                 '''
             }
-        }
+        } */
 
-        stage ('Release') {
+        /* stage ('Release') {
             steps {
                 script { build_stage = env.STAGE_NAME }
                 checkout([$class: 'GitSCM', branches: [[name: 'main']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'AuthorInChangelog']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'cortx-admin-github', url: 'https://github.com/Seagate/cortx-re']]])
@@ -249,9 +250,9 @@ pipeline {
 
                 """
             }
-        }
+        } */
 
-        stage ("Build CORTX-ALL image") {
+        /* stage ("Build CORTX-ALL image") {
                 steps {
                     script { build_stage = env.STAGE_NAME }
                     script {
@@ -275,9 +276,9 @@ pipeline {
                         }
                     }
                 }
-            }
+            } */
 
-        stage ('Print Build Information') {
+        /* stage ('Print Build Information') {
             steps {
                 script { build_stage = env.STAGE_NAME }
 
@@ -288,7 +289,7 @@ pipeline {
                 echo "${cortx_rgw_image}"
                 '''
             }
-        } 
+        }  */
     }
 
     post {
