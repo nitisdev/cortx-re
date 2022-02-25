@@ -200,11 +200,12 @@ pipeline {
                     ./make-dist
                     mkdir -p $release_dir/$component/$branch/rpmbuild/$BUILD_NUMBER/{BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS}
                     mv ceph*.tar.bz2 $release_dir/$component/$branch/rpmbuild/$BUILD_NUMBER/SOURCES/
-                    tar --strip-components=1 -C $release_dir/$component/$branch/rpmbuild/$BUILD_NUMBER/SPECS/ --no-anchored -xvjf $release_dir/$component/$branch/rpmbuild/$BUILD_NUMBER/SOURCES/ceph*.tar.bz2 "ceph.spec"
+                    yum install wget -y
+                    wget https://raw.githubusercontent.com/nitisdev/cortx-re/optimize-rgw/jenkins/automation/rgw/s.spec
                 popd
 
-                pushd $release_dir/$component/$branch/rpmbuild/$BUILD_NUMBER
-                     rpmbuild --clean --rmsource --define "_unpackaged_files_terminate_build 0" --define "debug_package %{nil}" --without cmake_verbose_logging --without jaeger --without lttng --without seastar --without kafka_endpoint --without zbd --without cephfs_java --without cephfs_shell --without ocf --without selinux --without ceph_test_package --without make_check --define "_binary_payload w2T16.xzdio" --define "_topdir `pwd`" -ba ./SPECS/ceph.spec
+                pushd $release_dir/$component/$branch/rpmbuild/$BUILD_NUMBERgit 
+                     time rpmbuild --clean --rmsource --define "_unpackaged_files_terminate_build 0" --define "debug_package %{nil}" --define "_binary_payload w2T16.xzdio" --define "_topdir `pwd`" --without seastar --without cephfs_java --without ceph_test_package --without selinux --without lttng  --without cephfs_shell  --without amqp_endpoint --without kafka_endpoint --without lua_packages --without zbd --without cmake_verbose_logging --without rbd_rwl_cache --without rbd_ssd_cache  --without system_pmdk --without jaeger --without ocf --without make_check -vv -ba /mnt/rgw/SPECS/s.spec
                 popd
 
                 rm -f $release_dir/$component/$branch/rpmbuild/last_successful && ln -s $release_dir/$component/$branch/rpmbuild/$BUILD_NUMBER $release_dir/$component/$branch/rpmbuild/last_successful
