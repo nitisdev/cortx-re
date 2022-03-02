@@ -26,7 +26,7 @@ services:
       - /var/lib/docker/:/var/lib/docker:ro
       - /dev/disk/:/dev/disk:ro
       - /cgroup:/sys/fs/cgroup:ro
-      - /mnt/data1:/mnt/bigstorage:ro
+      - /mnt/cortx-storage:/mnt/cortx-storage:ro
 
   grafana:
     image: grafana/grafana:latest
@@ -34,6 +34,7 @@ services:
     restart: always
     volumes:
       - grafana-volume:/var/lib/grafana
+      - /mnt/cortx-storage/releases/jenkins/jenkins-prod/certs/:/etc/ssl/certs/:ro
     depends_on:
       - prometheus
     ports:
