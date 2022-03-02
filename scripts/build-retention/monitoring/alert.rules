@@ -7,7 +7,7 @@ groups:
     labels:
       severity: Critical
     annotations:
-      summary: "/mnt/data1/ storage is filling fast"
+      summary: "/mnt/data1/ storage is filling fast."
       description: "/mnt/data1/ usage is {{ humanize $value}}%. Reported by instance {{ $labels.instance }} of job {{ $labels.job }}."
 
   - alert: releases
@@ -16,5 +16,5 @@ groups:
     labels:
       severity: Critical
     annotations:
-      summary: "/mnt/data1/releases storage is filling fast"
+      summary: "/mnt/data1/releases storage is filling fast."
       description: "/mnt/data1/releases usage is {{ humanize $value}}%. Reported by instance {{ $labels.instance }} of job {{ $labels.job }}."
