@@ -23,7 +23,7 @@ BRANCH=$2
 OS=$3
 
 mkdir -p /mnt/bigstorage/releases
-mount="df -h/releases"
+mount="cortx-storage.colo.seagate.com:/mnt/data1/releases"
 echo $mount;
 grep -qs "$mount" /proc/mounts;
 if grep -qs "$mount" /proc/mounts; then
@@ -62,4 +62,3 @@ if [ "$CURRENT" -gt "$THRESHOLD" ] ; then
 	done
 done
 fi
-
