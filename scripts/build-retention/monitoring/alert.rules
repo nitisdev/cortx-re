@@ -1,16 +1,7 @@
 groups:
 - name: alert.rules
   rules:
-  - alert: cortx-storage-warning
-    expr: 100 - (100 * ((node_filesystem_avail_bytes{device="cortx-storage.colo.seagate.com:/mnt/data1", fstype="nfs4", instance="10.230.243.253:9100", job="node-exporter", mountpoint="/rootfs/mnt/cortx-storage"} )  / (node_filesystem_size_bytes{device="cortx-storage.colo.seagate.com:/mnt/data1", fstype="nfs4", instance="10.230.243.253:9100", job="node-exporter", mountpoint="/rootfs/mnt/cortx-storage"}) )) > 90
-    for: 30s
-    labels:
-      severity: Warning
-    annotations:
-      summary: "/mnt/data1/ storage is filling fast."
-      description: "/mnt/data1/ usage is {{ humanize $value}}%. Reported by instance {{ $labels.instance }} of job {{ $labels.job }}."
-
-  - alert: cortx-storage-critical
+  - alert: cortx-storage
     expr: 100 - (100 * ((node_filesystem_avail_bytes{device="cortx-storage.colo.seagate.com:/mnt/data1", fstype="nfs4", instance="10.230.243.253:9100", job="node-exporter", mountpoint="/rootfs/mnt/cortx-storage"} )  / (node_filesystem_size_bytes{device="cortx-storage.colo.seagate.com:/mnt/data1", fstype="nfs4", instance="10.230.243.253:9100", job="node-exporter", mountpoint="/rootfs/mnt/cortx-storage"}) )) > 95
     for: 30s
     labels:
@@ -19,16 +10,7 @@ groups:
       summary: "/mnt/data1/ storage is filling fast."
       description: "/mnt/data1/ usage is {{ humanize $value}}%. Reported by instance {{ $labels.instance }} of job {{ $labels.job }}."
 
-  - alert: releases-warning
-    expr: 100 - (100 * ((node_filesystem_avail_bytes{device="cortx-storage.colo.seagate.com:/mnt/data1/releases", fstype="nfs4", instance="10.230.243.253:9100", job="node-exporter", mountpoint="/rootfs/mnt/bigstorage/releases"} )  / (node_filesystem_size_bytes{device="cortx-storage.colo.seagate.com:/mnt/data1/releases", fstype="nfs4", instance="10.230.243.253:9100", job="node-exporter", mountpoint="/rootfs/mnt/bigstorage/releases"}) )) > 85
-    for: 30s
-    labels:
-      severity: Warning
-    annotations:
-      summary: "/mnt/data1/releases storage is filling fast."
-      description: "/mnt/data1/releases usage is {{ humanize $value}}%. Reported by instance {{ $labels.instance }} of job {{ $labels.job }}."
-
-  - alert: releases-critical
+  - alert: releases
     expr: 100 - (100 * ((node_filesystem_avail_bytes{device="cortx-storage.colo.seagate.com:/mnt/data1/releases", fstype="nfs4", instance="10.230.243.253:9100", job="node-exporter", mountpoint="/rootfs/mnt/bigstorage/releases"} )  / (node_filesystem_size_bytes{device="cortx-storage.colo.seagate.com:/mnt/data1/releases", fstype="nfs4", instance="10.230.243.253:9100", job="node-exporter", mountpoint="/rootfs/mnt/bigstorage/releases"}) )) > 90
     for: 30s
     labels:
