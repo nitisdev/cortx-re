@@ -10,7 +10,7 @@ route:
   - receiver: "CORTX_RE-email"
     group_wait: 10s
     match_re:
-      severity: critical|warning
+      severity: Critical|Warning
     continue: true
 
 receivers:
