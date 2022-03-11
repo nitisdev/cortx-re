@@ -673,7 +673,7 @@ It also contains utilities used for the cephadm orchestrator.
 # common
 #################################################################################
 %prep
-%autosetup -p1 -n ceph-17.0.0-10266-gd581ba839ed
+%autosetup -p1 -n @TARBALL_BASENAME@
 
 %build
 # Disable lto on systems that do not support symver attribute
