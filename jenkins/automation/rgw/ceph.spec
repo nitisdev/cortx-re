@@ -143,8 +143,8 @@
 # main package definition
 #################################################################################
 Name:		ceph
-Version:	@PROJECT_VERSION@
-Release:	@RPM_RELEASE@%{?dist}
+Version:	17.0.0
+Release:	10266.gd581ba839ed%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -159,7 +159,7 @@ License:	LGPL-2.1 and LGPL-3.0 and CC-BY-SA-3.0 and GPL-2.0 and BSL-1.0 and BSD-
 Group:		System/Filesystems
 %endif
 URL:		http://ceph.com/
-Source0:	%{?_remote_tarball_prefix}@TARBALL_BASENAME@.tar.bz2
+Source0:	%{?_remote_tarball_prefix}ceph-17.0.0-10266-gd581ba839ed.tar.bz2
 %if 0%{?suse_version}
 # _insert_obs_source_lines_here
 ExclusiveArch:  x86_64 aarch64 ppc64le s390x
