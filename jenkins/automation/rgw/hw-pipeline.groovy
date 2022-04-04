@@ -19,6 +19,10 @@ pipeline {
         ansiColor('xterm')   
         disableConcurrentBuilds()   
     }
+
+    parameters {
+        string(name: 'branch', defaultValue: 'main')
+    }
     
     stages {
 
