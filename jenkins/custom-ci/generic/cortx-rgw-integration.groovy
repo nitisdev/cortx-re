@@ -47,7 +47,8 @@ pipeline {
                 script { build_stage = env.STAGE_NAME }
 
                 sh encoding: 'UTF-8', label: 'cortx-provisioner', script: '''
-                    if [ "${ENABLE_ADDB_PLUGIN}" == "yes" ]; then
+                    export ENABLE_ADDB_PLUGIN=${ENABLE_ADDB_PLUGIN}
+                    if [ "$ENABLE_ADDB_PLUGIN" == "yes" ]; then
                         bash ./jenkins/build.sh -v 2.0.0 -b ${CUSTOM_CI_BUILD_ID} -addb
                     else
                         bash ./jenkins/build.sh -v 2.0.0 -b ${CUSTOM_CI_BUILD_ID}
