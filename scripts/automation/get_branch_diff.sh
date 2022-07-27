@@ -54,7 +54,7 @@ pushd $clone_dir/clone
 
 for component in "${!COMPONENT_LIST[@]}"
 do
-        echo "Component:$component"
+        echo "Here Component:$component"
         echo "Repo:${COMPONENT_LIST[$component]}"
         git clone --branch main ${COMPONENT_LIST[$component]}
         if [ $? -ne 0 ]; then 
