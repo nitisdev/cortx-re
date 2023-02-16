@@ -109,6 +109,7 @@ pipeline {
 
         always {
             script {
+                
                 def recipientProvidersClass = [[$class: 'RequesterRecipientProvider']]
                 
                 def mailRecipients = "CORTX.DevOps.RE@seagate.com"
